@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>动画系统原理介绍</title>
+    <style>
+        :root {
+            --primary: #3498db;
+            --bg: #f4f7f6;
+            --text: #2c3e50;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 40px;
+        }
+        .card {
+            background: white;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        h1 { border-left: 5px solid var(--primary); padding-left: 15px; }
+        
+        /* 核心动画演示区 */
+        .demo-box {
+            height: 200px;
+            background: #eee;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        .moving-ball {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 50%;
+            position: absolute;
+            /* 定义动画：名称 时长 缓动函数 次数 方向 */
+            animation: slideAround 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes slideAround {
+            0% { transform: translateX(-300px) scale(1); background: #3498db; }
+            50% { transform: translateX(0) scale(1.5); background: #e74c3c; }
+            100% { transform: translateX(300px) scale(1); background: #f1c40f; }
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .feature-item {
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        code { background: #e0e0e0; padding: 2px 5px; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Web 动画系统概览</h1>
+    <p>动画系统是 UI 交互的灵魂。在 Web 开发中，它主要由三个核心部分组成：</p>
+
+    <div class="demo-box">
+        <div class="moving-ball"></div>
+    </div>
+
+    <div class="features">
+        <div class="feature-item">
+            <h3>1. 关键帧 (Keyframes)</h3>
+            <p>定义动画在特定时间点的状态。例如 <code>0%</code> 是开始，<code>100%</code> 是结束。</p>
+        </div>
+        <div class="feature-item">
+            <h3>2. 补间/缓动 (Easing)</h3>
+            <p>决定状态变化的“节奏”。是匀速运动，还是像弹簧一样先快后慢？</p>
+        </div>
+        <div class="feature-item">
+            <h3>3. 属性转换 (Transforms)</h3>
+            <p>操作元素的位移、旋转、缩放。通过 GPU 加速，确保动画在高负载下依然流畅。</p>
+        </div>
+        <div class="feature-item">
+            <h3>4. 触发机制 (Triggers)</h3>
+            <p>动画何时开始？可以是页面加载自启动，也可以是用户点击或悬停时触发。</p>
+        </div>
+    </div>
+
+    <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+    
+    <h3>技术小贴士</h3>
+    <p>正如你在论文中看到的 <strong>TFPS 架构</strong> 使用多专家协作（MoE）来处理不同模式，现代动画系统也会根据不同的交互场景（模式）选择不同的渲染策略，以达到性能与视觉的最佳平衡。</p>
+</div>
+
+</body>
+</html>
